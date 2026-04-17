@@ -25,4 +25,4 @@ Se você gostou do meu trabalho ou quer trocar uma ideia sobre tecnologia, sinta
 - [![Instagram](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/dayvid_arruda/)
 
 ---
-Desenvolvido com ❤️ por **Dayvid Arruda**.
+Desenvolvido por **Dayvid Arruda**.
