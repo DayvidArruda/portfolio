@@ -4,6 +4,9 @@ Bem-vindo ao repositório do meu portfólio pessoal! Este projeto foi desenvolvi
 
 > **Link para o site:** [Acesse aqui](https://portfolio-one-bice-nw3ac3p1kx.vercel.app/)
 
+## 🎨 Layout
+![Demonstração do App](finance-gif.gif)
+
 ## 👤 Sobre Mim
 Sou estudante do primeiro ano de faculdade em Recife-PE e entusiasta do desenvolvimento Frontend. Atualmente, estou focado em criar interfaces modernas, responsivas e intuitivas utilizando as melhores práticas de HTML, CSS e JavaScript.
 
