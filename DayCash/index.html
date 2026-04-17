@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DayCash Ultra Pro | Gestão Financeira</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-slate-50 text-slate-900 transition-all duration-300" id="appBody">
+
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <header class="flex flex-col md:row justify-between items-center mb-8 gap-4 md:flex-row">
+            <div>
+                <h1 class="text-3xl font-black tracking-tighter">DayCash <span class="text-indigo-600">Ultra</span></h1>
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">Dashboard de Controle</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleDarkMode()"
+                    class="p-3 rounded-xl bg-white shadow-sm border border-slate-200 hover:bg-slate-100 transition"
+                    id="darkBtn">🌙</button>
+                <button onclick="exportarDados()"
+                    class="p-3 rounded-xl bg-white shadow-sm border border-slate-200 hover:bg-slate-100 transition">📥
+                    Exportar</button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div class="glass-card p-6 rounded-3xl border border-white shadow-sm">
+                <p class="label-admin">Sua Renda</p>
+                <div class="flex items-center gap-1">
+                    <span class="text-xl font-bold text-green-600">R$</span>
+                    <input type="number" id="salarioInput" value="0" class="input-money" oninput="atualizarTudo()">
+                </div>
+                <select id="frequenciaInput"
+                    class="text-[10px] font-bold text-slate-400 bg-transparent outline-none mt-2 uppercase"
+                    onchange="atualizarTudo()">
+                    <option value="1">Mensal</option>
+                    <option value="2">Quinzenal</option>
+                    <option value="4">Semanal</option>
+                </select>
+            </div>
+
+            <div class="glass-card p-6 rounded-3xl border border-red-100 bg-red-50/20 shadow-sm">
+                <p class="label-admin text-red-400">Dívidas do Mês</p>
+                <div class="flex items-center gap-1">
+                    <span class="text-xl font-bold text-red-600">R$</span>
+                    <span id="gastoMensalTxt" class="text-2xl font-black text-red-600">0,00</span>
+                </div>
+                <p id="avisoCLT" class="text-[10px] font-bold text-slate-400 mt-2 uppercase">Projetado para o período
+                </p>
+            </div>
+
+            <div class="gradient-card p-6 rounded-3xl text-white shadow-xl shadow-indigo-200">
+                <p class="text-[10px] font-bold uppercase opacity-80">Saldo Livre</p>
+                <h2 id="totalMesTxt" class="text-3xl font-black mt-1">R$ 0,00</h2>
+                <p class="text-[10px] font-medium opacity-70 mt-2 italic">Disponível para uso</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-3xl border border-white shadow-sm">
+                <p class="label-admin">Meta de Reserva</p>
+                <div class="flex items-center gap-1">
+                    <span class="text-sm font-bold text-slate-400">R$</span>
+                    <input type="number" id="metaValor" placeholder="0"
+                        class="text-lg font-bold outline-none w-full bg-transparent" oninput="atualizarMetas()">
+                </div>
+                <div class="w-full bg-slate-200 h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div id="barraProgresso" class="bg-indigo-600 h-full transition-all duration-700" style="width: 0%">
+                    </div>
+                </div>
+                <p id="metaStatus" class="text-[9px] font-bold text-slate-400 mt-2">0% alcançado</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <aside class="space-y-6">
+                <section class="glass-card p-6 rounded-3xl border border-white shadow-sm">
+                    <h2 class="text-lg font-bold mb-6 flex items-center gap-2"><span>🏷️</span> Novo Gasto</h2>
+                    <div class="space-y-4">
+                        <input type="text" id="desc" placeholder="O que você pagou?" class="input-field">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="number" id="valor" placeholder="Valor" class="input-field">
+                            <input type="date" id="data" class="input-field text-sm">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <select id="categoria" class="input-field">
+                                <option value="🍔 Alimentação">🍔 Mercado</option>
+                                <option value="🏠 Moradia">🏠 Aluguel/Casa</option>
+                                <option value="🚗 Transporte">🚗 Transporte</option>
+                                <option value="🎮 Lazer">🎮 Lazer/Hobby</option>
+                                <option value="💳 Cartão">💳 Cartão Crédito</option>
+                                <option value="📺 Streaming">📺 Assinaturas</option>
+                                <option value="📚 Estudos">📚 Estudos</option>
+                            </select>
+                            <select id="tipoPagamento" class="input-field" onchange="toggleParcelas()">
+                                <option value="avista">À Vista</option>
+                                <option value="parcelado">Parcelado</option>
+                            </select>
+                        </div>
+                        <div id="campoParcelas" class="hidden animate-slide-down">
+                            <label class="text-[10px] font-bold text-slate-400 ml-1 uppercase">Vezes</label>
+                            <input type="number" id="numParcelas" value="1" min="1" class="input-field mt-1">
+                        </div>
+                        <button onclick="adicionarGasto()" class="btn-primary">Registrar Despesa</button>
+                    </div>
+                </section>
+            </aside>
+
+            <main class="lg:col-span-2 space-y-8">
+                <div class="glass-card p-6 rounded-3xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xs font-black uppercase text-slate-400 tracking-widest">Projeção de Fluxo</h2>
+                        <div class="flex items-center gap-3">
+                            <button onclick="mudarMes(-1)" class="btn-nav">◀</button>
+                            <span id="mesAtualExtenso"
+                                class="text-xs font-black text-indigo-600 uppercase w-28 text-center">Janeiro
+                                2026</span>
+                            <button onclick="mudarMes(1)" class="btn-nav">▶</button>
+                        </div>
+                    </div>
+                    <div class="h-[250px]">
+                        <canvas id="meuGrafico"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden shadow-sm border border-white">
+                    <div class="p-6 border-b border-slate-50 flex justify-between items-center bg-white/40">
+                        <h2 class="text-lg font-bold">Listagem Detalhada</h2>
+                        <span id="contadorVencimentos" class="badge">0 itens</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-slate-100/50">
+                                <tr>
+                                    <th class="p-4 label-admin">Status</th>
+                                    <th class="p-4 label-admin">Descrição</th>
+                                    <th class="p-4 label-admin">Data</th>
+                                    <th class="p-4 label-admin text-right">Valor</th>
+                                    <th class="p-4 label-admin text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaVencimentos" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+            <section class="glass-card p-6 rounded-3xl border border-indigo-100 bg-indigo-50/10 shadow-sm mt-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-sm font-black uppercase text-indigo-600 tracking-widest flex items-center gap-2">
+                        <span>✨</span> IA Financial Mentor
+                    </h2>
+                    <button onclick="gerarConselhoIA()" id="btnIA"
+                        class="text-[10px] bg-indigo-600 text-white px-3 py-1 rounded-full font-bold hover:bg-indigo-700 transition">
+                        Pedir Conselho
+                    </button>
+                </div>
+                <div id="conselhoIA" class="text-sm text-slate-600 italic leading-relaxed">
+                    Clique no botão para analisar seus gastos deste mês e receber dicas personalizadas.
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer class="mt-12 text-center text-slate-500 text-sm">
+        © 2026 Dayvid Arruda - Todos os direitos reservados
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

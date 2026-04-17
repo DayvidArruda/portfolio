@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Produtos - StoreClub</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">StoreClub</div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="produtos.html">Produtos</a>
+                </li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container-produtos">
+        <section id="s26" class="produto-detalhe"><!-- Inicio seção s26-->
+            <div class="thumbnails">
+                <img src="imagem/s26U.png" alt="S26 Ultra Violeta" onclick="changeImage(this)">
+                <img src="imagem/s26U-cinza.png" alt="S26 Ultra Cinza" onclick="changeImage(this)">
+                <img src="imagem/s26U-camera.png" alt="Detalhe Câmera" onclick="changeImage(this)">
+            </div>
+
+            <div class="main-image-container">
+                <img src="imagem/s26U.png" id="main-img" alt="Galaxy S26 Ultra">
+            </div>
+
+            <div class="produto-info">
+                <span class="badge">Novo Lançamento</span>
+                <h1>Galaxy S26 Ultra</h1>
+                <p class="desc">O ápice da tecnologia móvel com IA avançada e titânio aeroespacial.</p>
+
+                <div class="price-box">
+                    <span class="price-old">R$ 13.999</span>
+                    <span class="price-current">R$ 9.899</span>
+                </div>
+
+                <div class="specs-grid">
+                    <div class="spec-item"><strong>Chip:</strong> Snapdragon 8 Elite Gen 5</div>
+                    <div class="spec-item"><strong>Tela:</strong> 6.9" Dynamic AMOLED 2X</div>
+                    <div class="spec-item"><strong>Câmera:</strong> 200Mpx</div>
+                    <div class="spec-item"><strong>Bateria:</strong> 5000 mAh</div>
+                </div>
+
+                <button class="btn">Comprar Agora</button>
+            </div>
+        </section><!-- Fim seção s26-->
+    </main>
+
+    <script>
+        // Função para trocar a imagem principal
+        function changeImage(element) {
+            const mainImg = document.getElementById('main-img');
+            mainImg.style.opacity = '0'; // Efeito de fade out
+
+            setTimeout(() => {
+                mainImg.src = element.src;
+                mainImg.style.opacity = '1'; // Efeito de fade in
+            }, 200);
+        }
+
+        // Script do Preloader
+        window.addEventListener("load", () => {
+            document.getElementById("preloader").classList.add("hidden");
+        });
+    </script>
+    <footer style="text-align:center; padding:1rem 0; color:#fff; background:#080808; font-size:.9rem;">
+        © 2026 Dayvid Arruda - Todos os direitos reservados
+    </footer>
+</body>
+
+</html>

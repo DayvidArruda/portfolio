@@ -1,0 +1,615 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    background-color: #0f0f1e;
+    color: #fff;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    position: fixed;
+    width: 90vw;
+    top: 0;
+    left: 5%;
+    /* Para centralizar os 90vw */
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 11;
+}
+
+
+header nav ul {
+    display: flex;
+    gap: 48px;
+}
+
+header nav ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 5px 0;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    /* Remove o sublinhado */
+    color: #fff;
+    /* Força a cor inicial a ser branca */
+    transition: color 0.3s ease;
+    /* Deixa a mudança de cor suave */
+    display: inline-block;
+    font-family: "Montserrat", sans-serif;
+}
+
+header nav ul li:hover a {
+    color: #00f7ff;
+    /* Opcional: muda a cor do texto no hover para combinar com a linha */
+    transition: color 0.3s ease;
+}
+
+header nav ul li::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #00f7ff;
+    transition: width 0.2s ease;
+}
+
+header nav ul li:hover::after {
+    width: 100%;
+}
+
+/* Logo */
+.logo {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #00f7ff;
+    text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+}
+
+/* Container */
+.container {
+    height: 100vh;
+    position: relative;
+    background: linear-gradient(135deg, #0f0f1e 0%, #1f1f3a 100%);
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 247, 255, 0.2) 0%, rgba(15, 15, 30, 0) 70%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(50px);
+    z-index: 1;
+    animation: pulse 4s infinite alternate;
+    /*Tempo da animação da "pulsação"*/
+}
+
+/*Efeito Pulsação */
+@keyframes pulse {
+    0% {
+        opacity: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(2);
+    }
+}
+
+/* Lista */
+.list {
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Item */
+.item {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    /* Faz o mouse "atravessar" os itens escondidos */
+    z-index: 0;
+    /* Joga para trás */
+
+    /* Animação */
+    transform: translateX(100vw);
+    transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+}
+
+.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    /* Reativa os cliques apenas no item visível */
+    z-index: 10;
+    /* Traz para a frente de todos */
+}
+
+/* Imagem do produto - product-img */
+.product-img {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.product-img img {
+    max-width: 80%;
+    max-height: 60%;
+    filter: drop-shadow(0 0 30px rgba(0, 247, 255, 0.3));
+
+    /* Animação */
+    transform: translateX(200px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    transition-delay: 0.5s;
+}
+
+.active .product-img img {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.content {
+    width: 55%;
+    padding-right: 80px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 2;
+    flex-direction: column;
+}
+
+/* Tag do produto - product-tag */
+.product-tag {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #00f7ff;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+
+    /* Animação */
+    transform: translateX(200px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    transition-delay: 0.5s;
+}
+
+.active .product-tag {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Nome do produto - product-name */
+.product-name {
+    font-size: 4.5rem;
+    font-family: "Orbitron", sans-serif;
+    line-height: 1.1;
+    margin-bottom: 20px;
+
+    /* Animação */
+    transform: translateX(200px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    transition-delay: 0.5s;
+}
+
+.active .product-name {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Descrição */
+.description {
+    font-size: 1.1rem;
+    color: #b8b8d0;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 600px;
+
+    /* Animação */
+    transform: translateX(200px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    transition-delay: 0.5s;
+}
+
+.active .description {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Botão "Saiba Mais" */
+.btn {
+    padding: 12px 16px;
+    background: linear-gradient(90deg, #00f7ff, #0066ff);
+    border-radius: 30px;
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /*Transição do botão */
+}
+
+.btn:hover {
+    transform: translateY(2px);
+    /* Sobe de leve */
+    box-shadow: 0 2px 15px rgba(0, 247, 255, 0.4);
+    /* Brilho neon */
+}
+
+.btn:active {
+    transform: translateY(0);
+    /* Volta ao normal no clique */
+}
+
+/* Arrows - Setas */
+.arrows {
+    position: absolute;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+/* Botão Seta */
+.arrow-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 247, 255, 0.3);
+}
+
+.arrow-btn:hover {
+    background-color: rgba(0, 247, 255, 0.2);
+    border-color: #00f7ff;
+}
+
+/* Indicadores */
+.indicators {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 5;
+}
+
+/* Números */
+.numbers {
+    font-family: "Orbitron", sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* Pontos */
+.dots {
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 40px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.dot.active {
+    background-color: #00f7ff;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+}
+
+/* Circle - Circulo */
+.tech-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 247, 255, 0.2);
+}
+
+.circle:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+}
+
+.circle:nth-child(2) {
+    width: 300px;
+    height: 300px;
+    top: 60%;
+    left: 80%;
+}
+
+.circle:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    top: 70%;
+    left: 20%;
+}
+
+.circle:nth-child(4) {
+    width: 120px;
+    height: 120px;
+    top: 20%;
+    left: 70%;
+}
+
+/* Contato */
+.logo-loader {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2.5rem;
+    color: #00f7ff;
+    text-shadow: 0 0 20px rgba(0, 247, 255, 0.6);
+    animation: pulseLogo 1.5s infinite alternate;
+}
+
+@keyframes pulseLogo {
+    from {
+        transform: scale(0.9);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* --- Layout da página contato --- */
+.container-contato {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #0f0f1e 0%, #1f1f3a 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contato-section {
+    z-index: 10;
+    padding-top: 80px;
+    /* Espaço para o Header */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- Efeito Vidro (Glassmorphism) ---*/
+.glass-form {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.glass-form h2 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.glass-form h2 span {
+    color: #00f7ff;
+}
+
+.glass-form p {
+    color: #b8b8d0;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+}
+
+/* --- Input animados --- */
+.input-group {
+    position: relative;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(184, 184, 208, 0.3);
+    padding: 10px 0;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+    resize: none;
+    /* Dica: impede o usuário de deformar seu formulário */
+}
+
+.input-group label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: #b8b8d0;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+/* Efeito do label subir ao focar ou ter texto */
+.input-group input:focus~label,
+.input-group input:valid~label,
+.input-group textarea:focus~label,
+.input-group textarea:valid~label {
+    top: -20px;
+    font-size: 0.8rem;
+    color: #00f7ff;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-bottom: 2px solid #00f7ff;
+}
+
+/* Ajuste no botão para o formulário */
+.glass-form .btn {
+    width: 100%;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Classe para o link ativo no menu */
+.active-link {
+    color: #00f7ff !important;
+    font-weight: 900;
+}
+
+/* --- Produtos --- */
+.container-produtos {
+    padding-top: 120px;
+    min-height: 100vh;
+    background: #0f0f1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.produto-detalhe {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    /* Miniaturas | Foto | Texto */
+    gap: 40px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Miniaturas */
+.thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.thumbnails img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.thumbnails img:hover {
+    border-color: #00f7ff;
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+}
+
+/* Imagem Principal */
+.main-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, rgba(0, 247, 255, 0.05) 0%, transparent 70%);
+}
+
+#main-img {
+    max-width: 100%;
+    transition: opacity 0.3s ease;
+}
+
+/* Informações */
+.produto-info .badge {
+    color: #00f7ff;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.produto-info h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    margin: 10px 0;
+}
+
+.price-box {
+    margin: 20px 0;
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: #666;
+    margin-right: 15px;
+}
+
+.price-current {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 15px;
+}
