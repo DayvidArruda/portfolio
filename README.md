@@ -17,10 +17,6 @@ Neste projeto, utilizei:
 - **JavaScript**: Lógica para interatividade e animações.
 - **Git/GitHub**: Controle de versão e deploy contínuo.
 
-## 📁 Projetos em Destaque
-Dentro deste portfólio, você encontrará links para:
-1. **App de Fluxo de Caixa**: Gestão financeira pessoal com lógica em JS.
-
 ## 📱 Contato
 Se você gostou do meu trabalho ou quer trocar uma ideia sobre tecnologia, sinta-se à vontade para me chamar:
 
